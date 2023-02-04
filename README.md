@@ -1,2 +1,2 @@
-# resume-generator
+# resume-creator
 Application for generating resumes
