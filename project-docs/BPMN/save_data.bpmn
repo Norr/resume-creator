@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1fgygrx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_121snzh" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0td1o9s</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0z8vcl3" />
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0h14in8" name="Save data to DB">
+      <bpmn:incoming>Flow_0td1o9s</bpmn:incoming>
+      <bpmn:outgoing>Flow_1w5gv8v</bpmn:outgoing>
+      <bpmn:property id="Property_0k38g6x" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1fjarar">
+        <bpmn:sourceRef>DataStoreReference_0hldpzg</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0k38g6x</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0td1o9s" sourceRef="StartEvent_1" targetRef="Activity_0h14in8" />
+    <bpmn:exclusiveGateway id="Gateway_1si8i0p">
+      <bpmn:incoming>Flow_1w5gv8v</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vdn4qb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_07q07f5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1w5gv8v" sourceRef="Activity_0h14in8" targetRef="Gateway_1si8i0p" />
+    <bpmn:sequenceFlow id="Flow_0vdn4qb" name="Data saved" sourceRef="Gateway_1si8i0p" targetRef="Event_0826fox" />
+    <bpmn:endEvent id="Event_0826fox">
+      <bpmn:incoming>Flow_0vdn4qb</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_003gyub" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_07q07f5" name="Error occured when saving data" sourceRef="Gateway_1si8i0p" targetRef="Event_1r2iw1l" />
+    <bpmn:endEvent id="Event_1r2iw1l">
+      <bpmn:incoming>Flow_07q07f5</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_01gridu" />
+    </bpmn:endEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_0hldpzg" name="PostgreSQL" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_121snzh">
+      <bpmndi:BPMNEdge id="Flow_0td1o9s_di" bpmnElement="Flow_0td1o9s">
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="270" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w5gv8v_di" bpmnElement="Flow_1w5gv8v">
+        <di:waypoint x="370" y="177" />
+        <di:waypoint x="465" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vdn4qb_di" bpmnElement="Flow_0vdn4qb" bioc:stroke="#43a047" color:border-color="#43a047">
+        <di:waypoint x="490" y="152" />
+        <di:waypoint x="490" y="100" />
+        <di:waypoint x="592" y="100" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="502" y="123" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07q07f5_di" bpmnElement="Flow_07q07f5" bioc:stroke="#e53935" color:border-color="#e53935">
+        <di:waypoint x="490" y="202" />
+        <di:waypoint x="490" y="260" />
+        <di:waypoint x="592" y="260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="507" y="216" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0tv3vfw_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h14in8_di" bpmnElement="Activity_0h14in8">
+        <dc:Bounds x="270" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1si8i0p_di" bpmnElement="Gateway_1si8i0p" isMarkerVisible="true">
+        <dc:Bounds x="465" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0p3qmrw_di" bpmnElement="Event_0826fox" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="592" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kw6g2v_di" bpmnElement="Event_1r2iw1l" bioc:stroke="#e53935" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#e53935">
+        <dc:Bounds x="592" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0hldpzg_di" bpmnElement="DataStoreReference_0hldpzg">
+        <dc:Bounds x="415" y="245" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="410" y="302" width="61" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1fjarar_di" bpmnElement="DataInputAssociation_1fjarar">
+        <di:waypoint x="415" y="251" />
+        <di:waypoint x="367" y="214" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
